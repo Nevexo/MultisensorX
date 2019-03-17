@@ -24,17 +24,10 @@ void callback(char* topic, byte* payload, unsigned int length) {
   if (FEATURE_SERIAL_LOGGING) {
     Serial.print(topic);
   }
-  // MQTT Data Handler
-  char message[length + 1];
-  for (int i = 0; i < length; i++) {
-    message[i] = (char)payload[i];
-  }
-  message[length] = '\0';
-
-  if (topic == OUTPUT_LED_TOPIC && FEATURE_LEDS_ENABLE) {
-    // LED Command get!
-    digitalWrite(OUTPUT_LED_R, HIGH);
-    log(message);
+  if (FEATURE_LEDS_ENABLE) {
+    if (String(topic) == OUTPUT_LED_TOPIC) {
+      digitalWrite(OUTPUT_LED_R, HIGH);
+    }
   }
 }
 
