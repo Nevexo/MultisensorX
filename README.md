@@ -14,6 +14,9 @@ This project requires:
 - LCD / OLED Display Support - Planned
 - MOSFET/RELAY Support (with status) - Planned
 
+## Setup
+
+
 ## Thanks
 
 thewillwilson - Hardware testing & feature suggestion (DHT11/22)

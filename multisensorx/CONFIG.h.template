@@ -1,0 +1,74 @@
+// MultisensorX Configuration
+// By Nevexo
+
+// =================== Global Configuration ==================
+#define FEATURE_SERIAL_LOGGING true // Enable logging to UART Serial
+#define SERIAL_BUARD 9600           // Buard rate for UART Serial
+#define FEATURE_LED_PULSE true      // Flash on-board LED on sys-activity
+
+// =================== Wi-Fi Configuration ===================
+#define WIFI_SSID CCWIFI
+#define WIFI_PASS 
+
+// =================== MQTT Configuration ====================
+#define MQTT_HOST mqtt.nevexo.home
+#define MQTT_PORT 1883
+#define MQTT_ENABLE_AUTHENTICATION false
+#define MQTT_AUTH_USERNAME null
+#define MQTT_AUTH_PASSWORD null
+#define MQTT_PUBLISH_CLOCK 10 // Seconds delay between publishing to all topics
+
+// ====================== System Busses  ======================
+// Some of the following busses are required by sensors
+// and/or output devices!
+
+// --- OneWire Bus ---
+#define FEATURE_ONEWIRE_ENABLE true
+#define BUS_ONEWIRE_PIN D6 // Pin where the OneWire bus originates from
+#define FEATURE_ONEWIRE_LIST_DEV false // List OneWire devices on startup (requires serial logging)
+// --- I2C Bus ---
+#define FEATURE_I2C_ENABLE false
+#define BUS_I2C_PIN D7 // Pin where the i2c bus originates from
+#define FEATURE_I2C_LIST_DEV false // List i2c devices on startup (requires serial logging)
+
+// Section: Sensors
+// =================== DHT22 Configuration ====================
+// Enable DHT Sensor Support
+// No other busses are required.
+#define FEATURE_SENSOR_DHT_ENABLE true
+// Pin where the DHT sensor is connected
+#define SENSOR_DHT_PIN D7
+// Type of sensor (DHT11 & DHT22 supported)
+#define SENSOR_DHT_TYPE DHT221
+// MQTT Topics to public to (use false to disable publishing)
+#define SENSOR_DHT_TEMP_TOPIC room_temperature
+#define SENSOR_DHT_HUMID_TOPIC room_humidity
+#define SENSOR_DHT_HINDEX_TOPIC room_heat_index
+// The value sent to the topic if the sensor stops responding
+// use 'false' to not publish anything on failure.
+#define SENSOR_DHT_FAIL_VAL 0
+
+// ================== DS18B20 Configuration ===================
+// Enable DS18B20 Support
+// THIS FEATURE REQUIRES THE ONEWIRE BUS TO BE UP!
+#define FEATURE_DS18B20_ENABLE true
+// Set the OneWire address for this sensor
+// Set to null if there's only one device on your OneWire Bus.
+#define SENSOR_DS18B20_ADDR null
+// MQTT Topics to publish to (use false to disable publishing)
+#define SENSOR_DS18B20_TEMP_TOPIC aquarium_temperature
+// NOTE: DallasTemp handles error codes for these sensors
+// So expect values such as -127 or 0 as failure values!
+
+// Section: Output devices
+// ================== RGB LED Configuration ===================
+// MSX doesn't support addressable LEDs (yet)
+#define FEATURE_LEDS_ENABLE true
+// Setup digital output (PWM) pins
+// Set to false to disable that colour
+#define OUTPUT_LED_R D1 // RED LED PIN
+#define OUTPUT_LED_G D2 // GREEN LED PIN
+#define OUTPUT_LED_B D3 // BLUE LED PIN
+// MQTT Configuration
+// The LED State can be set via MQTT (JSON) {"r": "255", "g": "255", "b": 255}
+#define OUTPUT_LED_TOPIC multisensor_rgb_led
